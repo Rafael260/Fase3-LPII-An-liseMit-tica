@@ -1,0 +1,8 @@
+C:\Users\EliseuMedeiros\Documents\bomberman.jpg
+0.5	50	500
+81	chão
+50	bomba
+35	bomba
+105	bomba
+90	chão
+30	bomba

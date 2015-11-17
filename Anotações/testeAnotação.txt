@@ -1,0 +1,27 @@
+C:\Users\EliseuMedeiros\Documents\bomberman.jpg
+0.4	40.0	410.0
+71	chão
+142	muro
+144	chão
+80	muro
+146	chão
+151	bombas
+88	chão
+152	muro
+90	chão
+155	chão
+27	muro
+158	chão
+161	muro
+162	muro
+163	muro
+165	muro
+166	muro
+39	chão
+167	muro
+41	bombas
+105	muro
+106	chão
+52	bombas
+59	bombas
+61	fogo
