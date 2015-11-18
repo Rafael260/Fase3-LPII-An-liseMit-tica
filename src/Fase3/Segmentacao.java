@@ -4,6 +4,7 @@ import br.ufrn.imd.lp2.imagesegmentation.ImageInformation;
 import br.ufrn.imd.lp2.imagesegmentation.ImageSegmentation;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 /** Realizar o processo de segmentação de uma determinada imagem.
  *  pode-se gerar mapa de rótulos, segmentar imagem, contar o número de regiões
@@ -92,13 +93,11 @@ public class Segmentacao {
     }
     
     public String getNomeArquivo(){
-        /*String barra = "\\";
-        String [] divisoesEndereco = endereco.split(barra);
-        String nomeComExtensao = divisoesEndereco[divisoesEndereco.length - 1];
-        String[] partesDoNome = nomeComExtensao.split(".");
-        String nome = partesDoNome[0];
-        System.out.println(nome);*/
-        return "imagem";
+        File f = new File(endereco);
+        String nome = f.getName();
+        return nome.replace(".jpg", "");
+        //String [] partesNome = nome.split(".");
+        //return partesNome[0];
     }
     
     public int getIndiceDeVetor(int x, int y){

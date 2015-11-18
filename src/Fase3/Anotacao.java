@@ -34,6 +34,10 @@ public class Anotacao {
     public void setHashRegioes(Map<Integer,String> newHashRegioes){
         this.regioes = newHashRegioes;
     }
+    
+    public boolean contemRotulo(String descricao){
+        return regioes.containsValue(descricao);
+    }
     /**
      * Anota a região selecionada pelo usuário na HashMap
      * @param descricao - Descrição das regiões selecionadas
