@@ -6,10 +6,15 @@
 package Fase3;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -81,6 +86,7 @@ public class JImageFrame extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jPanelAnotacao1 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
+        jButtonSalvarNovaImagem = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         regioes = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -396,6 +402,14 @@ public class JImageFrame extends javax.swing.JFrame {
         jScrollPane6.setBorder(null);
         jPanelAnotacao1.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 160, 41));
 
+        jButtonSalvarNovaImagem.setText("Salvar nova imagem");
+        jButtonSalvarNovaImagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarNovaImagemActionPerformed(evt);
+            }
+        });
+        jPanelAnotacao1.add(jButtonSalvarNovaImagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 480, 140, 30));
+
         jTabbedPaneSegmentacao.addTab("Regiões destacadas", jPanelAnotacao1);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Resultados"));
@@ -451,7 +465,7 @@ public class JImageFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Regiões separadas", jScrollPane4);
 
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel10.setFont(new java.awt.Font("Bookman Old Style", 1, 36)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 153));
@@ -984,6 +998,10 @@ public class JImageFrame extends javax.swing.JFrame {
                  listaModelsAnotacao.addListaModels(descricao);
              }
         }
+        if (!anotacao.getHashRegioes().isEmpty()){
+            imagemComRegioes = anotacao.getImagemComRegioesAnotadas(segmentacao);
+            labelRegioesSeparadas.setIcon(new ImageIcon(imagemComRegioes));
+        }
     }//GEN-LAST:event_jRadioButtonMenuItem1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1020,6 +1038,16 @@ public class JImageFrame extends javax.swing.JFrame {
         regioesSelecionadas.clear();
         labelSegmentacao.setIcon(new ImageIcon (segmentacao.getImagemSegmentada()));
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButtonSalvarNovaImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarNovaImagemActionPerformed
+        File outputfile = new File(segmentacao.getNomeArquivo() + "_regioes_anotadas.jpg");
+        try {
+            ImageIO.write(anotacao.getMapaImagemNovoBrilho(segmentacao, anotacao.getRegioesAnotadas(), true), "jpg", outputfile);
+        } catch (IOException ex) {
+            Logger.getLogger(JImageFrame.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Houve um problema ao salvar a imagem.");
+        }
+    }//GEN-LAST:event_jButtonSalvarNovaImagemActionPerformed
       
     /**
      * Função que pega o texto digitado pelo usuário para converter em double
@@ -1064,6 +1092,7 @@ public class JImageFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonRemoverAnotacao;
     private javax.swing.JButton jButtonSalvarAlteracoes;
     private javax.swing.JButton jButtonSalvarComo;
+    private javax.swing.JButton jButtonSalvarNovaImagem;
     private javax.swing.JButton jButtonSegmt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

@@ -91,7 +91,15 @@ public class Segmentacao {
         return DEFAULT_MIN_SIZE;
     }
     
-    
+    public String getNomeArquivo(){
+        /*String barra = "\\";
+        String [] divisoesEndereco = endereco.split(barra);
+        String nomeComExtensao = divisoesEndereco[divisoesEndereco.length - 1];
+        String[] partesDoNome = nomeComExtensao.split(".");
+        String nome = partesDoNome[0];
+        System.out.println(nome);*/
+        return "imagem";
+    }
     
     public int getIndiceDeVetor(int x, int y){
         return y*imagem.getWidth()+ x;

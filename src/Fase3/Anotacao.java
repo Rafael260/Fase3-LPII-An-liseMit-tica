@@ -117,6 +117,8 @@ public class Anotacao {
         int red, green, blue;
         int [] mapaDeRegioes = image.getMapaDeRegioes();
               //laços para aplicar a escala de cinza na criação do mapa de rótulos
+              
+        Color branco = new Color(255, 255, 255);
         for(int i = 0, cont = 0; i < novaImagem.getHeight(); i++){
             for(int j = 0; j < novaImagem.getWidth(); j++, cont++){
                 //pegando cor do pixel atual
@@ -124,16 +126,15 @@ public class Anotacao {
                 red = corAtual.getRed();
                 green = corAtual.getGreen();
                 blue = corAtual.getBlue();
-                
                 //Os traços de segmentação continuam com a cor original
-                if (corAtual.getRed() == 255 && corAtual.getBlue() == 0 && corAtual.getGreen() == 0 && !gerarNovaImagem){
+                if (red == 255 && blue == 0 && green == 0 && !gerarNovaImagem){
                     continue;
                 }
                 
                 //Se tiver tratando de uma região que não foi clicada, deve escurecê-la
                 if(!regioesSelecionadas.contains(mapaDeRegioes[cont])){
                     if (gerarNovaImagem)
-                        novaImagem.setRGB(j,i, new Color(255, 255, 255).getRGB());
+                        novaImagem.setRGB(j,i, branco.getRGB());
                     else
                         novaImagem.setRGB(j,i, new Color(red/2, green/2, blue/2).getRGB());
                 }
