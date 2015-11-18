@@ -82,6 +82,31 @@ public class Anotacao {
     }
     
     /**
+     * Função que devolve um arraylist com todas as regiões anotadas no HashMap
+     * @return 
+     */
+    public ArrayList<Integer> getRegioesAnotadas(){
+        ArrayList<Integer> regioesAnotadas = new ArrayList<>();
+        Set<Integer> chaves = regioes.keySet();
+        regioesAnotadas.addAll(chaves);
+        /*for (Integer chave : chaves){
+            regioesAnotadas.add(chave);
+        }*/
+        return regioesAnotadas;
+    }
+    
+    /**
+     * Retorna a imagem mostrando apenas as regiões anotadas
+     * @param segmentacao
+     * @return 
+     */
+    public BufferedImage getImagemComRegioesAnotadas(Segmentacao segmentacao){
+        ArrayList<Integer> regioesAnotadas = this.getRegioesAnotadas();
+        BufferedImage novaImagem = this.getMapaImagemNovoBrilho(segmentacao, regioesAnotadas, true);
+        return novaImagem;
+    }
+    
+    /**
      * Retorna a imagem com o novo brilho
      * @param image é a imagem segmentada
      * @return a imagem com o brilho atualizado

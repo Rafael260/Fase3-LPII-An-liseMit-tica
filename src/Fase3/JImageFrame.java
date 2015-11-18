@@ -619,7 +619,7 @@ public class JImageFrame extends javax.swing.JFrame {
         
         labelSegmentacao.setIcon(new ImageIcon(segmentacao.getImagemSegmentada()));
         labelMapaDeRotulo.setIcon(new ImageIcon(segmentacao.getImagemMapaRotulo()));
-        
+        labelRegioesSeparadas.setIcon(null);
     }//GEN-LAST:event_jButtonSegmtActionPerformed
 
     /**
@@ -660,6 +660,8 @@ public class JImageFrame extends javax.swing.JFrame {
         jLabel6.setText("0");
         //desativa o botão de salvar alterações
         jButtonSalvarAlteracoes.setEnabled(false);
+        
+        labelRegioesSeparadas.setIcon(null);
     }//GEN-LAST:event_jMenuItemCarregarActionPerformed
 
     private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
@@ -741,6 +743,8 @@ public class JImageFrame extends javax.swing.JFrame {
         if(projetoAberto){
             jButtonSalvarAlteracoes.setEnabled(true);
         }
+        imagemComRegioes = anotacao.getImagemComRegioesAnotadas(segmentacao);
+        labelRegioesSeparadas.setIcon(new ImageIcon(imagemComRegioes));
     }//GEN-LAST:event_botaoNovaAnotacaoActionPerformed
 
     /**
@@ -884,6 +888,7 @@ public class JImageFrame extends javax.swing.JFrame {
         buscaAnotacoes.setText(descricaoClicada);
         //Limpa a lista de resultados iterativos de busca
         listaModelsBusca.clearListaModels();
+        listInstantSearch.setVisible(false);
     }//GEN-LAST:event_listInstantSearchMouseClicked
 
     /**
@@ -1047,6 +1052,7 @@ public class JImageFrame extends javax.swing.JFrame {
     private ArrayList<Integer> regioesSelecionadas;
     JFileChooser chooserOpen;
     JFileChooser chooserSave;
+    BufferedImage imagemComRegioes;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField blurLevel;
     private javax.swing.JButton botaoNovaAnotacao;
