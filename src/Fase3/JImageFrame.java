@@ -921,6 +921,10 @@ public class JImageFrame extends javax.swing.JFrame {
         if(projetoAberto){
             jButtonSalvarAlteracoes.setEnabled(true);
         }
+        
+        if (anotacao.getHashRegioes().isEmpty()){
+            labelRegioesSeparadas.setIcon(null);
+        }
     }//GEN-LAST:event_jButtonRemoverAnotacaoActionPerformed
 
     private void jSliderBlurLevelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSliderBlurLevelMouseReleased
