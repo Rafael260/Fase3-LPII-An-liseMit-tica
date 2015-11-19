@@ -32,7 +32,6 @@ public class JImageFrame extends javax.swing.JFrame {
     
     public JImageFrame() {
         initComponents();
-        projetoAberto = false;
         arquivo = new Arquivo();
         imagem = new Imagem();
         busca = new Busca();
@@ -73,7 +72,6 @@ public class JImageFrame extends javax.swing.JFrame {
         listaAnotacoes = new javax.swing.JList();
         jButtonRemoverAnotacao = new javax.swing.JButton();
         jButtonAbrirProjeto = new javax.swing.JButton();
-        jButtonSalvarAlteracoes = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jButtonRemoverSelecoes = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -332,18 +330,6 @@ public class JImageFrame extends javax.swing.JFrame {
         });
         jPanelAnotacao.add(jButtonAbrirProjeto, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 526, 191, -1));
 
-        jButtonSalvarAlteracoes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButtonSalvarAlteracoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/save_as.png"))); // NOI18N
-        jButtonSalvarAlteracoes.setText("Salvar alterações");
-        jButtonSalvarAlteracoes.setEnabled(false);
-        jButtonSalvarAlteracoes.setPreferredSize(new java.awt.Dimension(137, 35));
-        jButtonSalvarAlteracoes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalvarAlteracoesActionPerformed(evt);
-            }
-        });
-        jPanelAnotacao.add(jButtonSalvarAlteracoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 447, 191, 31));
-
         jScrollPane3.setBorder(null);
         jPanelAnotacao.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 160, 41));
 
@@ -598,7 +584,6 @@ public class JImageFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Você precisa carregar uma imagem JPG.");
             return;
         }
-        projetoAberto = false;
         //Insere a imagem no label da esquerda do programa
         labelSegmentacao.setIcon(new ImageIcon(chooserOpen.getSelectedFile().toString()));
         //Limpa o label de mapa de rótulo
@@ -617,8 +602,6 @@ public class JImageFrame extends javax.swing.JFrame {
         imagem.getSegmentacao().setEndereco(chooserOpen.getSelectedFile().toString());           
         //Zera a contagem do número de regiões, para fazer a contgem da imagem carregada
         numRegioesSegmentadas.setText("0");
-        //desativa o botão de salvar alterações
-        jButtonSalvarAlteracoes.setEnabled(false);
     }//GEN-LAST:event_jMenuItemCarregarActionPerformed
 
     private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
@@ -696,10 +679,7 @@ public class JImageFrame extends javax.swing.JFrame {
         if (!listaModelsAnotacao.contains(descricao)){
             listaModelsAnotacao.addListaModels(descricao);
         }
-            novaAnotacao.setText(null);
-        if(projetoAberto){
-            jButtonSalvarAlteracoes.setEnabled(true);
-        }
+        novaAnotacao.setText(null);
         imagemComRegioes = imagem.getAnotacao().getImagemComRegioesAnotadas(imagem.getSegmentacao());
     }//GEN-LAST:event_botaoNovaAnotacaoActionPerformed
 
@@ -717,7 +697,6 @@ public class JImageFrame extends javax.swing.JFrame {
         //if (chooserSave.showSaveDialog(null) != JFileChooser.APPROVE_OPTION){
         //    return;
         //}
-        projetoAberto = true;
         ArrayList<String> salvarArq = new ArrayList<>();
         //String caminhoArq = chooserSave.getSelectedFile().toString();
         String parametrosSeg = blurLevel.getText() +  "\t" + colorRadius.getText() + "\t" + minSize.getText();
@@ -732,10 +711,7 @@ public class JImageFrame extends javax.swing.JFrame {
         }
                         
         arquivo.salvarArquivo(salvarArq, imagem.getSegmentacao().getNomeArquivo());
-        
         JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso.");
-        //tornar o botão Salvar Alterações, Invisível.
-        jButtonSalvarAlteracoes.setEnabled(false);
     }//GEN-LAST:event_jButtonSalvarComoActionPerformed
 
     
@@ -805,9 +781,6 @@ public class JImageFrame extends javax.swing.JFrame {
         imagem.getAnotacao().removerAnotacaoDaHash(descricao);
         listaModelsAnotacao.removeListaModels(descricao);
         labelSegmentacao.setIcon(new ImageIcon(imagem.getSegmentacao().getImagemSegmentada()));
-        if(projetoAberto){
-            jButtonSalvarAlteracoes.setEnabled(true);
-        }
     }//GEN-LAST:event_jButtonRemoverAnotacaoActionPerformed
 
     private void jSliderBlurLevelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSliderBlurLevelMouseReleased
@@ -828,8 +801,8 @@ public class JImageFrame extends javax.swing.JFrame {
  * @param evt 
  */
     private void jRadioButtonMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        chooserOpen = new JFileChooser();
+        //Abre a janela de selecionar projeto já na pasta onde são salvos por default
+        chooserOpen = new JFileChooser(new File(".").getAbsolutePath() + "\\anotacoes");
         //Se não carregou o arquivo, não tem o que fazer
         if (chooserOpen.showOpenDialog(null) != JFileChooser.APPROVE_OPTION){
             return;
@@ -839,7 +812,6 @@ public class JImageFrame extends javax.swing.JFrame {
             return;
         }
         arquivo.lerArquivo(chooserOpen.getSelectedFile().toString());
-        projetoAberto = true; //comando utilizado para abilitar o botão de salvar alterações
         //setando valores nos campos de texto
         blurLevel.setText(Double.toString(arquivo.getBlurLevel()));
         colorRadius.setText(Double.toString(arquivo.getColorRadius()));
@@ -895,26 +867,6 @@ public class JImageFrame extends javax.swing.JFrame {
         jRadioButtonMenuItem1ActionPerformed(evt);
     }//GEN-LAST:event_jButtonAbrirProjetoActionPerformed
 
-    private void jButtonSalvarAlteracoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarAlteracoesActionPerformed
-        // TODO add your handling code here:
-        ArrayList<String> salvarArq = new ArrayList<>();
-        String caminhoArq = chooserOpen.getSelectedFile().toString();
-        String aux = blurLevel.getText() +  "\t" + colorRadius.getText() + "\t" + minSize.getText();
-        //Adiciona o endereço da imagem na primeira linha
-        salvarArq.add(imagem.getSegmentacao().getEndereco());
-        //Na segunda linha ficam as conficurações de segmentação ("blurLevel", "colorRadius" e "minSize" respectivamente)
-        salvarArq.add(aux);
-        Map<Integer,String> regioesPraSalvar = imagem.getAnotacao().getHashRegioes();
-        Set<Integer> chaves = regioesPraSalvar.keySet();
-        for(Integer a: chaves){
-            salvarArq.add(a.toString() + "\t" + regioesPraSalvar.get(a));
-        }
-                        
-        arquivo.salvarArquivo(salvarArq, caminhoArq);
-        jButtonSalvarAlteracoes.setEnabled(false);
-        JOptionPane.showMessageDialog(rootPane, "Alterações salvas com sucesso.");
-    }//GEN-LAST:event_jButtonSalvarAlteracoesActionPerformed
-
     private void jButtonRemoverSelecoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverSelecoesActionPerformed
         if (!imagem.getSegmentacao().estaSegmentada()){
             return;
@@ -950,7 +902,6 @@ public class JImageFrame extends javax.swing.JFrame {
     }
         
     private Arquivo arquivo; //para salvar ou abrir arquivos
-    private boolean projetoAberto; //usado em comparações para ativar o botão de salvar alterações
     private Imagem imagem;
     private Busca busca;
     private ListaModels listaModelsAnotacao;
@@ -967,7 +918,6 @@ public class JImageFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAbrirProjeto;
     private javax.swing.JButton jButtonRemoverAnotacao;
     private javax.swing.JButton jButtonRemoverSelecoes;
-    private javax.swing.JButton jButtonSalvarAlteracoes;
     private javax.swing.JButton jButtonSalvarComo;
     private javax.swing.JButton jButtonSegmt;
     private javax.swing.JLabel jLabel1;

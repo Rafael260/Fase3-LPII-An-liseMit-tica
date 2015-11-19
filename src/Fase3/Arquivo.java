@@ -31,7 +31,8 @@ public class Arquivo {
     /** ---------------------------------------*/
     private BufferedReader lerArq;
     private String linha;
-    private final String[] extensoesArquivo = { ".txt"};
+    private final String[] extensoesArquivo = { ".amp"};
+    private final String nomeArquivoListaImagens = "imagens_projeto.amp";
     public Arquivo(){
         
     }
@@ -51,9 +52,9 @@ public class Arquivo {
         return descricaoArquivo;
     }
     //Testa se o arquivo escolhido é mesmo uma extensão do projeto
-    public boolean ehProjeto(String endereco){
+    public boolean ehProjeto(String nomeArquivo){
         for (String extensao : extensoesArquivo) {
-            if (endereco.endsWith(extensao)) {
+            if (nomeArquivo.endsWith(extensao)) {
                 return true;
             }
         }
