@@ -18,4 +18,8 @@ public class ListaImagens {
     public ListaImagens(){
         imagens = new ArrayList<>();
     }
+    
+    public void addImagem(Imagem imagem){
+        imagens.add(imagem);
+    }
 }

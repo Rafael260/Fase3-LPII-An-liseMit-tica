@@ -46,5 +46,4 @@ public class Imagem {
         this.imagem = imagem;
     }
     
-    
 }

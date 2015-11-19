@@ -5,7 +5,9 @@
  */
 package Fase3;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  * Classe para manipulação de arquivo. Salvar ou ler um arquivo do tipo de projeto do Mitotic Analyses.
@@ -94,18 +97,20 @@ public class Arquivo {
      * Salva o caminho da imagem, as configurações de segmentação e as anotações com
      * os respectivos números da região segmentada.
      * @param guardaArq 
-     * @param CaminhoArq 
+     * @param nomeArquivo 
      */
-    public void salvarArquivo(ArrayList<String> guardaArq, String CaminhoArq)
-   {    
+    public void salvarArquivo(ArrayList<String> guardaArq, String nomeArquivo)
+    {    
         PrintWriter gravarArq;
         FileWriter arq = null;
         try {
             //certifica-se para que o nome do arquivo a ser salvo termine com  a extensão do projeto (".txt").
-            if(!ehProjeto(CaminhoArq)) 
-                arq = new FileWriter(CaminhoArq + ".txt");
-            else
-                arq = new FileWriter(CaminhoArq);
+            //if(!ehProjeto(CaminhoArq)) 
+            //    arq = new FileWriter(CaminhoArq + ".txt");
+            //else
+            //    arq = new FileWriter(CaminhoArq);
+            
+            arq = new FileWriter("anotacoes\\" + nomeArquivo + ".amp");
             
         } catch (IOException ex) {
             System.out.println("Problemas ao criar arquivo");
@@ -122,5 +127,15 @@ public class Arquivo {
         } catch (IOException ex) {
             System.out.println("problemas para finalizar o arquivo.");
         }
-   }
+    }
+    
+    /**
+     * Salva a imagem no diretório padrão do projeto
+     * @param segmentacao
+     * @throws IOException 
+     */
+    public void salvarArquivo(Segmentacao segmentacao) throws IOException{
+        File outputFile = new File("imagens\\" + segmentacao.getNomeArquivo()+ ".jpg");
+        ImageIO.write(segmentacao.getImagemSegmentada(),"jpg",outputFile);
+    }
 }

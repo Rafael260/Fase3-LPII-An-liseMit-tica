@@ -39,9 +39,6 @@ public class JImageFrame extends javax.swing.JFrame {
         listaModelsAnotacao = new ListaModels();
         listaModelsBusca = new ListaModels();
         regioesSelecionadas = new ArrayList<>();
-        //Valores de parâmetros inicializados com valores default
-        //jScrollPane3.setVisible(false);
-        //listInstantSearch.setVisible(false);
     }
 
     /**
@@ -74,15 +71,11 @@ public class JImageFrame extends javax.swing.JFrame {
         jButtonSalvarComo = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         listaAnotacoes = new javax.swing.JList();
-        jToolBar1 = new javax.swing.JToolBar();
         jButtonRemoverAnotacao = new javax.swing.JButton();
         jButtonAbrirProjeto = new javax.swing.JButton();
         jButtonSalvarAlteracoes = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jButtonRemoverSelecoes = new javax.swing.JButton();
-        jPanelAnotacao1 = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jButtonSalvarNovaImagem = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         regioes = new javax.swing.JLabel();
         numRegioesSegmentadas = new javax.swing.JLabel();
@@ -91,8 +84,6 @@ public class JImageFrame extends javax.swing.JFrame {
         labelSegmentacao = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         labelMapaDeRotulo = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        labelRegioesSeparadas = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -109,9 +100,6 @@ public class JImageFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -303,7 +291,7 @@ public class JImageFrame extends javax.swing.JFrame {
 
         jButtonSalvarComo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jButtonSalvarComo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/save as icon.png"))); // NOI18N
-        jButtonSalvarComo.setText("Salvar como");
+        jButtonSalvarComo.setText("Salvar anotações");
         jButtonSalvarComo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSalvarComoActionPerformed(evt);
@@ -324,10 +312,6 @@ public class JImageFrame extends javax.swing.JFrame {
         jScrollPane2.setViewportView(listaAnotacoes);
 
         jPanelAnotacao.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 96, 276, 198));
-
-        jToolBar1.setBorder(null);
-        jToolBar1.setRollover(true);
-        jPanelAnotacao.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 300, 164, 31));
 
         jButtonRemoverAnotacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/remover.png"))); // NOI18N
         jButtonRemoverAnotacao.setText("Remover");
@@ -372,21 +356,6 @@ public class JImageFrame extends javax.swing.JFrame {
         jPanelAnotacao.add(jButtonRemoverSelecoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 120, 30));
 
         jTabbedPaneSegmentacao.addTab("Anotação", jPanelAnotacao);
-
-        jPanelAnotacao1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jScrollPane6.setBorder(null);
-        jPanelAnotacao1.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 160, 41));
-
-        jButtonSalvarNovaImagem.setText("Salvar nova imagem");
-        jButtonSalvarNovaImagem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalvarNovaImagemActionPerformed(evt);
-            }
-        });
-        jPanelAnotacao1.add(jButtonSalvarNovaImagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 480, 140, 30));
-
-        jTabbedPaneSegmentacao.addTab("Regiões destacadas", jPanelAnotacao1);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Resultados"));
 
@@ -434,12 +403,6 @@ public class JImageFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(labelMapaDeRotulo);
 
         jTabbedPane1.addTab("Mapa de Rótulos", jScrollPane1);
-
-        labelRegioesSeparadas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        labelRegioesSeparadas.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jScrollPane4.setViewportView(labelRegioesSeparadas);
-
-        jTabbedPane1.addTab("Regiões separadas", jScrollPane4);
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -576,9 +539,9 @@ public class JImageFrame extends javax.swing.JFrame {
         listaModelsAnotacao.clearListaModels();
         //listaAnotacoes.setModel(listaModelsAnotacao.getListaModels());
         
-        double local_blur_Level;
-        double local_color_Radius;
-        double local_min_Size;
+        double local_blur_Level = 0;
+        double local_color_Radius = 0;
+        double local_min_Size = 0;
         //Se a imagem não foi carregada, não faz nada
         if (imagem.getSegmentacao().getEndereco() == null){
             JOptionPane.showMessageDialog(rootPane, "Imagem não carregada!");            
@@ -589,17 +552,17 @@ public class JImageFrame extends javax.swing.JFrame {
         try{
             local_blur_Level = getDouble(blurLevel.getText());
         }catch(IllegalArgumentException e){
-            local_blur_Level = Segmentacao.getDefaultBlurLevel();
+            JOptionPane.showMessageDialog(rootPane, "Parâmetros de segmentação inválidos");
         }
         try{
             local_color_Radius = getDouble(colorRadius.getText());
         }catch(IllegalArgumentException e){
-            local_color_Radius = Segmentacao.getDefaultColorRadius();
+            JOptionPane.showMessageDialog(rootPane, "Parâmetros de segmentação inválidos");
         }
         try{
             local_min_Size = getDouble(minSize.getText());
         }catch(IllegalArgumentException e){
-            local_min_Size = Segmentacao.getDefaultMinSize();
+            JOptionPane.showMessageDialog(rootPane, "Parâmetros de segmentação inválidos");
         }
         //Se a imagem não foi segmentada ainda, ou se os parâmetros foram alterados, deve segmentar a imagem
         if (imagem.getSegmentacao().estaModificado(local_blur_Level,local_color_Radius,local_min_Size) || imagem.getSegmentacao().getImagem() == null){
@@ -609,7 +572,13 @@ public class JImageFrame extends javax.swing.JFrame {
         
         labelSegmentacao.setIcon(new ImageIcon(imagem.getSegmentacao().getImagemSegmentada()));
         labelMapaDeRotulo.setIcon(new ImageIcon(imagem.getSegmentacao().getImagemMapaRotulo()));
-        labelRegioesSeparadas.setIcon(null);
+        
+        try{
+            arquivo.salvarArquivo(imagem.getSegmentacao());
+        }
+        catch(IOException e){
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro ao salvar a imagem no diretório padrão");
+        }
     }//GEN-LAST:event_jButtonSegmtActionPerformed
 
     /**
@@ -650,8 +619,6 @@ public class JImageFrame extends javax.swing.JFrame {
         numRegioesSegmentadas.setText("0");
         //desativa o botão de salvar alterações
         jButtonSalvarAlteracoes.setEnabled(false);
-        
-        labelRegioesSeparadas.setIcon(null);
     }//GEN-LAST:event_jMenuItemCarregarActionPerformed
 
     private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
@@ -734,7 +701,6 @@ public class JImageFrame extends javax.swing.JFrame {
             jButtonSalvarAlteracoes.setEnabled(true);
         }
         imagemComRegioes = imagem.getAnotacao().getImagemComRegioesAnotadas(imagem.getSegmentacao());
-        labelRegioesSeparadas.setIcon(new ImageIcon(imagemComRegioes));
     }//GEN-LAST:event_botaoNovaAnotacaoActionPerformed
 
     /**
@@ -742,32 +708,30 @@ public class JImageFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void jButtonSalvarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarComoActionPerformed
-         // TODO add your handling code here:
-                   //Testa a extensão do arquivo carregado, se não for imagem, não continua
         if (imagem.getAnotacao().getHashRegioes().isEmpty() ){
             JOptionPane.showMessageDialog(rootPane, "Você tem que fazer alguma anotação.");
             return;
         }
-        chooserSave = new JFileChooser();
+        //chooserSave = new JFileChooser();
         //Se não carregou o arquivo, não faz nada
-        if (chooserSave.showSaveDialog(null) != JFileChooser.APPROVE_OPTION){
-            return;
-        }
+        //if (chooserSave.showSaveDialog(null) != JFileChooser.APPROVE_OPTION){
+        //    return;
+        //}
         projetoAberto = true;
         ArrayList<String> salvarArq = new ArrayList<>();
-        String caminhoArq = chooserSave.getSelectedFile().toString();
-        String aux = blurLevel.getText() +  "\t" + colorRadius.getText() + "\t" + minSize.getText();
+        //String caminhoArq = chooserSave.getSelectedFile().toString();
+        String parametrosSeg = blurLevel.getText() +  "\t" + colorRadius.getText() + "\t" + minSize.getText();
         //Adiciona o endereço da imagem na primeira linha
         salvarArq.add(imagem.getSegmentacao().getEndereco());
         //Na segunda linha ficam as conficurações de segmentação ("blurLevel", "colorRadius" e "minSize" respectivamente)
-        salvarArq.add(aux);
+        salvarArq.add(parametrosSeg);
         Map<Integer,String> regioesPraSalvar = imagem.getAnotacao().getHashRegioes();
         Set<Integer> chaves = regioesPraSalvar.keySet();
         for(Integer a: chaves){
             salvarArq.add(a.toString() + "\t" + regioesPraSalvar.get(a));
         }
                         
-        arquivo.salvarArquivo(salvarArq, caminhoArq);
+        arquivo.salvarArquivo(salvarArq, imagem.getSegmentacao().getNomeArquivo());
         
         JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso.");
         //tornar o botão Salvar Alterações, Invisível.
@@ -844,10 +808,6 @@ public class JImageFrame extends javax.swing.JFrame {
         if(projetoAberto){
             jButtonSalvarAlteracoes.setEnabled(true);
         }
-        
-        if (imagem.getAnotacao().getHashRegioes().isEmpty()){
-            labelRegioesSeparadas.setIcon(null);
-        }
     }//GEN-LAST:event_jButtonRemoverAnotacaoActionPerformed
 
     private void jSliderBlurLevelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSliderBlurLevelMouseReleased
@@ -864,7 +824,7 @@ public class JImageFrame extends javax.swing.JFrame {
         colorRadius.setText(Double.toString(valorJSlider));
     }//GEN-LAST:event_jSliderColorRadiusMouseReleased
 /**
- * Abrir projeto, fazendo a leitura do arquivo, e depois adicionando nos campos do jFrame.
+ * Abrir projeto, fazendo a leitura do ,, e depois adicionando nos campos do jFrame.
  * @param evt 
  */
     private void jRadioButtonMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem1ActionPerformed
@@ -927,7 +887,6 @@ public class JImageFrame extends javax.swing.JFrame {
         }
         if (!imagem.getAnotacao().getHashRegioes().isEmpty()){
             imagemComRegioes = imagem.getAnotacao().getImagemComRegioesAnotadas(imagem.getSegmentacao());
-            labelRegioesSeparadas.setIcon(new ImageIcon(imagemComRegioes));
         }
     }//GEN-LAST:event_jRadioButtonMenuItem1ActionPerformed
 
@@ -966,17 +925,9 @@ public class JImageFrame extends javax.swing.JFrame {
         labelSegmentacao.setIcon(new ImageIcon (imagem.getSegmentacao().getImagemSegmentada()));
     }//GEN-LAST:event_jButtonRemoverSelecoesActionPerformed
 
-    private void jButtonSalvarNovaImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarNovaImagemActionPerformed
-
-    }//GEN-LAST:event_jButtonSalvarNovaImagemActionPerformed
-
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         dispose();
     }//GEN-LAST:event_formWindowClosing
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        dispose();
-    }//GEN-LAST:event_formWindowClosed
       
     /**
      * Função que pega o texto digitado pelo usuário para converter em double
@@ -1018,7 +969,6 @@ public class JImageFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonRemoverSelecoes;
     private javax.swing.JButton jButtonSalvarAlteracoes;
     private javax.swing.JButton jButtonSalvarComo;
-    private javax.swing.JButton jButtonSalvarNovaImagem;
     private javax.swing.JButton jButtonSegmt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1037,23 +987,18 @@ public class JImageFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelAnotacao;
-    private javax.swing.JPanel jPanelAnotacao1;
     private javax.swing.JPanel jPanelSelecSegmentacao;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPaneImagem;
     private javax.swing.JSlider jSliderBlurLevel;
     private javax.swing.JSlider jSliderColorRadius;
     private javax.swing.JSlider jSliderMinSize;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPaneSegmentacao;
-    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel labelMapaDeRotulo;
-    private javax.swing.JLabel labelRegioesSeparadas;
     private javax.swing.JLabel labelSegmentacao;
     private javax.swing.JList listaAnotacoes;
     private javax.swing.JMenu menuAjuda;
