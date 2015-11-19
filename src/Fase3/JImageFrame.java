@@ -701,7 +701,7 @@ public class JImageFrame extends javax.swing.JFrame {
         //String caminhoArq = chooserSave.getSelectedFile().toString();
         String parametrosSeg = blurLevel.getText() +  "\t" + colorRadius.getText() + "\t" + minSize.getText();
         //Adiciona o endereço da imagem na primeira linha
-        salvarArq.add(imagem.getSegmentacao().getEndereco());
+        salvarArq.add(imagem.getSegmentacao().getNomeArquivo());
         //Na segunda linha ficam as conficurações de segmentação ("blurLevel", "colorRadius" e "minSize" respectivamente)
         salvarArq.add(parametrosSeg);
         Map<Integer,String> regioesPraSalvar = imagem.getAnotacao().getHashRegioes();

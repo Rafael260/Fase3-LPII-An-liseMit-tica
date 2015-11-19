@@ -105,12 +105,6 @@ public class Arquivo {
         PrintWriter gravarArq;
         FileWriter arq = null;
         try {
-            //certifica-se para que o nome do arquivo a ser salvo termine com  a extensão do projeto (".txt").
-            //if(!ehProjeto(CaminhoArq)) 
-            //    arq = new FileWriter(CaminhoArq + ".txt");
-            //else
-            //    arq = new FileWriter(CaminhoArq);
-            
             arq = new FileWriter("anotacoes\\" + nomeArquivo + ".amp");
             
         } catch (IOException ex) {
