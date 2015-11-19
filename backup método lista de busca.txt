@@ -1,0 +1,9 @@
+MÉTODO DE CLIQUE NA LISTA DE BUSCA AUTO COMPLETE
+
+        //Guarda a descrição que o usuário selecionou
+        String descricaoClicada = (String) listInstantSearch.getSelectedValue();
+        //Insere o nome da descrição no campo de busca
+        buscaAnotacoes.setText(descricaoClicada);
+        //Limpa a lista de resultados iterativos de busca
+        listaModelsBusca.clearListaModels();
+        listInstantSearch.setVisible(false);

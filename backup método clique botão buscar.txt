@@ -1,0 +1,17 @@
+
+MÉTODO DE CLIQUE NO BOTÃO BUSCAR - ANTIGO - JIMAGEFRAME
+
+String descricaoSelecionada = buscaAnotacoes.getText();
+        buscaAnotacoes.setText("");
+        //Se nao tiver nenhum item na lista de anotação, não há o que fazer
+        if (descricaoSelecionada.isEmpty() || !segmentacao.estaSegmentada() || anotacao.getHashRegioes().isEmpty()){
+            return;
+        }
+        //Retira todas as regiões selecionadas no momento
+        regioesSelecionadas.clear();
+
+        //Pega a lista de todas as regiões que possuem a descrição selecionada
+        ArrayList<Integer> regioesDaBusca = busca.getRegioesComDescricao(descricaoSelecionada,anotacao.getHashRegioes());
+        //Pega a imagem com as regiões do arraylist destacadas
+        BufferedImage imagemComRegioesBuscadas = anotacao.getMapaImagemNovoBrilho(segmentacao, regioesDaBusca,false);
+        labelSegmentacao.setIcon(new ImageIcon(imagemComRegioesBuscadas));

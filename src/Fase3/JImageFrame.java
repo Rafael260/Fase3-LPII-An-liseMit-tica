@@ -34,15 +34,14 @@ public class JImageFrame extends javax.swing.JFrame {
         initComponents();
         projetoAberto = false;
         arquivo = new Arquivo();
-        segmentacao = new Segmentacao();
-        anotacao = new Anotacao();
+        imagem = new Imagem();
         busca = new Busca();
         listaModelsAnotacao = new ListaModels();
         listaModelsBusca = new ListaModels();
         regioesSelecionadas = new ArrayList<>();
         //Valores de parâmetros inicializados com valores default
         //jScrollPane3.setVisible(false);
-        listInstantSearch.setVisible(false);
+        //listInstantSearch.setVisible(false);
     }
 
     /**
@@ -76,20 +75,17 @@ public class JImageFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         listaAnotacoes = new javax.swing.JList();
         jToolBar1 = new javax.swing.JToolBar();
-        buscaAnotacoes = new javax.swing.JTextField();
-        jButtonBuscaAnotacoes = new javax.swing.JButton();
         jButtonRemoverAnotacao = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonAbrirProjeto = new javax.swing.JButton();
         jButtonSalvarAlteracoes = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        listInstantSearch = new javax.swing.JList();
-        jButton2 = new javax.swing.JButton();
+        jButtonRemoverSelecoes = new javax.swing.JButton();
         jPanelAnotacao1 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jButtonSalvarNovaImagem = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         regioes = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        numRegioesSegmentadas = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPaneImagem = new javax.swing.JScrollPane();
         labelSegmentacao = new javax.swing.JLabel();
@@ -331,26 +327,6 @@ public class JImageFrame extends javax.swing.JFrame {
 
         jToolBar1.setBorder(null);
         jToolBar1.setRollover(true);
-
-        buscaAnotacoes.setPreferredSize(new java.awt.Dimension(200, 28));
-        buscaAnotacoes.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                buscaAnotacoesKeyReleased(evt);
-            }
-        });
-        jToolBar1.add(buscaAnotacoes);
-
-        jButtonBuscaAnotacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/buscar2.png"))); // NOI18N
-        jButtonBuscaAnotacoes.setFocusable(false);
-        jButtonBuscaAnotacoes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonBuscaAnotacoes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonBuscaAnotacoes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBuscaAnotacoesActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButtonBuscaAnotacoes);
-
         jPanelAnotacao.add(jToolBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 300, 164, 31));
 
         jButtonRemoverAnotacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/remover.png"))); // NOI18N
@@ -362,15 +338,15 @@ public class JImageFrame extends javax.swing.JFrame {
         });
         jPanelAnotacao.add(jButtonRemoverAnotacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
 
-        jButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/abrir_projeto.png"))); // NOI18N
-        jButton1.setText("Abrir Projeto");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAbrirProjeto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jButtonAbrirProjeto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/abrir_projeto.png"))); // NOI18N
+        jButtonAbrirProjeto.setText("Abrir Projeto");
+        jButtonAbrirProjeto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonAbrirProjetoActionPerformed(evt);
             }
         });
-        jPanelAnotacao.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 526, 191, -1));
+        jPanelAnotacao.add(jButtonAbrirProjeto, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 526, 191, -1));
 
         jButtonSalvarAlteracoes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonSalvarAlteracoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/save_as.png"))); // NOI18N
@@ -385,23 +361,15 @@ public class JImageFrame extends javax.swing.JFrame {
         jPanelAnotacao.add(jButtonSalvarAlteracoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 447, 191, 31));
 
         jScrollPane3.setBorder(null);
-
-        listInstantSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listInstantSearchMouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(listInstantSearch);
-
         jPanelAnotacao.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 160, 41));
 
-        jButton2.setText("Remover Seleções");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRemoverSelecoes.setText("Remover Seleções");
+        jButtonRemoverSelecoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonRemoverSelecoesActionPerformed(evt);
             }
         });
-        jPanelAnotacao.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 120, 30));
+        jPanelAnotacao.add(jButtonRemoverSelecoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 120, 30));
 
         jTabbedPaneSegmentacao.addTab("Anotação", jPanelAnotacao);
 
@@ -425,8 +393,8 @@ public class JImageFrame extends javax.swing.JFrame {
         regioes.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         regioes.setText("Regiões:");
 
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel6.setText("0");
+        numRegioesSegmentadas.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        numRegioesSegmentadas.setText("0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -436,7 +404,7 @@ public class JImageFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(regioes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(numRegioesSegmentadas)
                 .addContainerGap(496, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -445,7 +413,7 @@ public class JImageFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(regioes)
-                    .addComponent(jLabel6))
+                    .addComponent(numRegioesSegmentadas))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -603,7 +571,7 @@ public class JImageFrame extends javax.swing.JFrame {
      */
     private void jButtonSegmtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSegmtActionPerformed
         //Esvazia as anotações de uma possível imagem anterior
-        anotacao.esvaziarHash();
+        imagem.getAnotacao().esvaziarHash();
         //Esvazia as anotações da lista
         listaModelsAnotacao.clearListaModels();
         //listaAnotacoes.setModel(listaModelsAnotacao.getListaModels());
@@ -612,7 +580,7 @@ public class JImageFrame extends javax.swing.JFrame {
         double local_color_Radius;
         double local_min_Size;
         //Se a imagem não foi carregada, não faz nada
-        if (segmentacao.getEndereco() == null){
+        if (imagem.getSegmentacao().getEndereco() == null){
             JOptionPane.showMessageDialog(rootPane, "Imagem não carregada!");            
             return;
         }
@@ -634,13 +602,13 @@ public class JImageFrame extends javax.swing.JFrame {
             local_min_Size = Segmentacao.getDefaultMinSize();
         }
         //Se a imagem não foi segmentada ainda, ou se os parâmetros foram alterados, deve segmentar a imagem
-        if (segmentacao.estaModificado(local_blur_Level,local_color_Radius,local_min_Size) || segmentacao.getImagem() == null){
-            segmentacao.segmentarImagem();
-            jLabel6.setText(Integer.toString(segmentacao.getNumeroDeRegioes()));
+        if (imagem.getSegmentacao().estaModificado(local_blur_Level,local_color_Radius,local_min_Size) || imagem.getSegmentacao().getImagem() == null){
+            imagem.getSegmentacao().segmentarImagem();
+            numRegioesSegmentadas.setText(Integer.toString(imagem.getSegmentacao().getNumeroDeRegioes()));
         }
         
-        labelSegmentacao.setIcon(new ImageIcon(segmentacao.getImagemSegmentada()));
-        labelMapaDeRotulo.setIcon(new ImageIcon(segmentacao.getImagemMapaRotulo()));
+        labelSegmentacao.setIcon(new ImageIcon(imagem.getSegmentacao().getImagemSegmentada()));
+        labelMapaDeRotulo.setIcon(new ImageIcon(imagem.getSegmentacao().getImagemMapaRotulo()));
         labelRegioesSeparadas.setIcon(null);
     }//GEN-LAST:event_jButtonSegmtActionPerformed
 
@@ -657,7 +625,7 @@ public class JImageFrame extends javax.swing.JFrame {
         }
         
         //Testa a extensão do arquivo carregado, se não for imagem, não continua
-        if (!segmentacao.ehImagem(chooserOpen.getSelectedFile().toString())){
+        if (!imagem.getSegmentacao().ehImagem(chooserOpen.getSelectedFile().toString())){
             JOptionPane.showMessageDialog(rootPane, "Você precisa carregar uma imagem JPG.");
             return;
         }
@@ -667,19 +635,19 @@ public class JImageFrame extends javax.swing.JFrame {
         //Limpa o label de mapa de rótulo
         labelMapaDeRotulo.setIcon(null);
         //Limpa a instancia de imagem, para carregar corretamente a nova
-        segmentacao.resetaImagem();
+        imagem.getSegmentacao().resetaImagem();
         //Limpa as seleções anteriores
         regioesSelecionadas.clear();
         //Esvazia as anotações de uma possível imagem anterior
-        anotacao.esvaziarHash();
+        imagem.getAnotacao().esvaziarHash();
         //Limpa as anotações de uma possível imagem anterior
         listaModelsAnotacao.clearListaModels();
         listaAnotacoes.setModel(listaModelsAnotacao.getListaModels());
         
         //Salva o endereço da imagem
-        segmentacao.setEndereco(chooserOpen.getSelectedFile().toString());           
+        imagem.getSegmentacao().setEndereco(chooserOpen.getSelectedFile().toString());           
         //Zera a contagem do número de regiões, para fazer a contgem da imagem carregada
-        jLabel6.setText("0");
+        numRegioesSegmentadas.setText("0");
         //desativa o botão de salvar alterações
         jButtonSalvarAlteracoes.setEnabled(false);
         
@@ -696,23 +664,23 @@ public class JImageFrame extends javax.swing.JFrame {
     private void labelSegmentacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelSegmentacaoMouseClicked
         //Se o usuário clicou numa região do label que não tenha imagem, retira a seleção da lista de anotações
         //e tira as seleções de região
-        if (segmentacao.estaSegmentada() && !segmentacao.estaNoIntervalo(evt.getX(), evt.getY())){
+        if (imagem.getSegmentacao().estaSegmentada() && !imagem.getSegmentacao().estaNoIntervalo(evt.getX(), evt.getY())){
             listaAnotacoes.clearSelection();
-            listInstantSearch.clearSelection();
+            //listInstantSearch.clearSelection();
             regioesSelecionadas.clear();
-            labelSegmentacao.setIcon(new ImageIcon (segmentacao.getImagemSegmentada()));
+            labelSegmentacao.setIcon(new ImageIcon (imagem.getSegmentacao().getImagemSegmentada()));
         }
 
         //Se não tiver imagem, ou não segmentou ainda, ou o clique não foi na imagem, não há mais o que fazer
-        if (segmentacao.getEndereco() == null || !segmentacao.estaSegmentada() || !segmentacao.estaNoIntervalo(evt.getX(), evt.getY()))
+        if (imagem.getSegmentacao().getEndereco() == null || !imagem.getSegmentacao().estaSegmentada() || !imagem.getSegmentacao().estaNoIntervalo(evt.getX(), evt.getY()))
             return;
         
         BufferedImage novaImagem;
-        BufferedImage imagemSegmentada = segmentacao.getImagemSegmentada();
+        BufferedImage imagemSegmentada = imagem.getSegmentacao().getImagemSegmentada();
         //Pega o indice do vetor correspondente à posição x,y da imagem
-        int indiceDoVetor = segmentacao.getIndiceDeVetor(evt.getX(), evt.getY());
+        int indiceDoVetor = imagem.getSegmentacao().getIndiceDeVetor(evt.getX(), evt.getY());
         //Pega o vetor de mapeamento da imagem [0-N]
-        int [] mapaDeRegioes = segmentacao.getMapaDeRegioes();
+        int [] mapaDeRegioes = imagem.getSegmentacao().getMapaDeRegioes();
         //Pega o número da região clicada
         int numRegiaoClicada = mapaDeRegioes[indiceDoVetor];
         //Se a região não foi clicada ainda, adiciona na lista de regioes
@@ -728,7 +696,7 @@ public class JImageFrame extends javax.swing.JFrame {
             return;
         }
         //Pega a imagem com o destaque das regiões clicadas
-        novaImagem = anotacao.getMapaImagemNovoBrilho(segmentacao, regioesSelecionadas,false);
+        novaImagem = imagem.getAnotacao().getMapaImagemNovoBrilho(imagem.getSegmentacao(), regioesSelecionadas,false);
         //Coloca a imagem na tela
         labelSegmentacao.setIcon(new ImageIcon(novaImagem));
     }//GEN-LAST:event_labelSegmentacaoMouseClicked
@@ -754,9 +722,9 @@ public class JImageFrame extends javax.swing.JFrame {
             return;
         }
         //Anota as regiões selecionadas
-        anotacao.anotarRegiao(descricao, regioesSelecionadas);
+        imagem.getAnotacao().anotarRegiao(descricao, regioesSelecionadas);
         //Coloca a imagem segmentada na tela
-        labelSegmentacao.setIcon(new ImageIcon (segmentacao.getImagemSegmentada()));
+        labelSegmentacao.setIcon(new ImageIcon (imagem.getSegmentacao().getImagemSegmentada()));
         
         if (!listaModelsAnotacao.contains(descricao)){
             listaModelsAnotacao.addListaModels(descricao);
@@ -765,7 +733,7 @@ public class JImageFrame extends javax.swing.JFrame {
         if(projetoAberto){
             jButtonSalvarAlteracoes.setEnabled(true);
         }
-        imagemComRegioes = anotacao.getImagemComRegioesAnotadas(segmentacao);
+        imagemComRegioes = imagem.getAnotacao().getImagemComRegioesAnotadas(imagem.getSegmentacao());
         labelRegioesSeparadas.setIcon(new ImageIcon(imagemComRegioes));
     }//GEN-LAST:event_botaoNovaAnotacaoActionPerformed
 
@@ -776,7 +744,7 @@ public class JImageFrame extends javax.swing.JFrame {
     private void jButtonSalvarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarComoActionPerformed
          // TODO add your handling code here:
                    //Testa a extensão do arquivo carregado, se não for imagem, não continua
-        if (anotacao.getHashRegioes().isEmpty() ){
+        if (imagem.getAnotacao().getHashRegioes().isEmpty() ){
             JOptionPane.showMessageDialog(rootPane, "Você tem que fazer alguma anotação.");
             return;
         }
@@ -790,10 +758,10 @@ public class JImageFrame extends javax.swing.JFrame {
         String caminhoArq = chooserSave.getSelectedFile().toString();
         String aux = blurLevel.getText() +  "\t" + colorRadius.getText() + "\t" + minSize.getText();
         //Adiciona o endereço da imagem na primeira linha
-        salvarArq.add(segmentacao.getEndereco());
+        salvarArq.add(imagem.getSegmentacao().getEndereco());
         //Na segunda linha ficam as conficurações de segmentação ("blurLevel", "colorRadius" e "minSize" respectivamente)
         salvarArq.add(aux);
-        Map<Integer,String> regioesPraSalvar = anotacao.getHashRegioes();
+        Map<Integer,String> regioesPraSalvar = imagem.getAnotacao().getHashRegioes();
         Set<Integer> chaves = regioesPraSalvar.keySet();
         for(Integer a: chaves){
             salvarArq.add(a.toString() + "\t" + regioesPraSalvar.get(a));
@@ -805,23 +773,6 @@ public class JImageFrame extends javax.swing.JFrame {
         //tornar o botão Salvar Alterações, Invisível.
         jButtonSalvarAlteracoes.setEnabled(false);
     }//GEN-LAST:event_jButtonSalvarComoActionPerformed
-
-    private void jButtonBuscaAnotacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscaAnotacoesActionPerformed
-        String descricaoSelecionada = buscaAnotacoes.getText();
-        buscaAnotacoes.setText("");
-        //Se nao tiver nenhum item na lista de anotação, não há o que fazer
-        if (descricaoSelecionada.isEmpty() || !segmentacao.estaSegmentada() || anotacao.getHashRegioes().isEmpty()){
-            return;
-        }
-        //Retira todas as regiões selecionadas no momento
-        regioesSelecionadas.clear();
-        
-        //Pega a lista de todas as regiões que possuem a descrição selecionada
-        ArrayList<Integer> regioesDaBusca = busca.getRegioesComDescricao(descricaoSelecionada,anotacao.getHashRegioes());
-        //Pega a imagem com as regiões do arraylist destacadas
-        BufferedImage imagemComRegioesBuscadas = anotacao.getMapaImagemNovoBrilho(segmentacao, regioesDaBusca,false);
-        labelSegmentacao.setIcon(new ImageIcon(imagemComRegioesBuscadas));
-    }//GEN-LAST:event_jButtonBuscaAnotacoesActionPerformed
 
     
     private void jSliderColorRadiusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSliderColorRadiusMouseClicked
@@ -867,52 +818,16 @@ public class JImageFrame extends javax.swing.JFrame {
         //Pega a descrição da região que o usuário clicou
         String descricaoSelecionada = (String) listaAnotacoes.getSelectedValue();
         //Pega a lista de todas as regiões que possuem a descrição selecionada
-        ArrayList<Integer> regioesDaAnotacao = busca.getRegioesComDescricao(descricaoSelecionada,anotacao.getHashRegioes());
+        ArrayList<Integer> regioesDaAnotacao = busca.getRegioesComDescricao(descricaoSelecionada,imagem.getAnotacao().getHashRegioes());
         //Pega a imagem com as regiões do arraylist destacadas
-        BufferedImage imagemComRegioesAnotadas = anotacao.getMapaImagemNovoBrilho(segmentacao, regioesDaAnotacao,false);
+        BufferedImage imagemComRegioesAnotadas = imagem.getAnotacao().getMapaImagemNovoBrilho(imagem.getSegmentacao(), regioesDaAnotacao,false);
         labelSegmentacao.setIcon(new ImageIcon(imagemComRegioesAnotadas));
     }//GEN-LAST:event_listaAnotacoesMouseClicked
-
-    /**
-     * Exibe todos os resultados em tempo real conforme usuário digita sua pesquisa
-     * @param evt 
-     */
-    private void buscaAnotacoesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscaAnotacoesKeyReleased
-        //Pega o que o usuário digitou até o momento para a busca
-        String digitado = buscaAnotacoes.getText();
-        //Busca todas as descrições que começam com o texto digitado
-        ArrayList<String> resultados = busca.getDescricoesComInicio(digitado, anotacao.getHashRegioes());
-        listaModelsBusca.clearListaModels();
-        listaModelsBusca.addListaModels(resultados);
-        //Coloca todas as descrições na lista de resultados em tempo real
-        listInstantSearch.setModel(listaModelsBusca.getListaModels());
-        //Se o arraylist não estiver vazio, deve mostrar al ista de resultados
-        if (!resultados.isEmpty()){
-            listInstantSearch.setVisible(true);
-        }
-        else{
-            listInstantSearch.setVisible(false);
-        }
-    }//GEN-LAST:event_buscaAnotacoesKeyReleased
 
     private void blurLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blurLevelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_blurLevelActionPerformed
     
-    /**
-     * Selecionar um resultado iterativo de busca
-     * @param evt 
-     */
-    private void listInstantSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listInstantSearchMouseClicked
-        //Guarda a descrição que o usuário selecionou
-        String descricaoClicada = (String) listInstantSearch.getSelectedValue();
-        //Insere o nome da descrição no campo de busca
-        buscaAnotacoes.setText(descricaoClicada);
-        //Limpa a lista de resultados iterativos de busca
-        listaModelsBusca.clearListaModels();
-        listInstantSearch.setVisible(false);
-    }//GEN-LAST:event_listInstantSearchMouseClicked
-
     /**
      * Remover anotação selecionada
      * @param evt 
@@ -923,14 +838,14 @@ public class JImageFrame extends javax.swing.JFrame {
         }
        
         String descricao = (String)listaAnotacoes.getSelectedValue();
-        anotacao.removerAnotacaoDaHash(descricao);
+        imagem.getAnotacao().removerAnotacaoDaHash(descricao);
         listaModelsAnotacao.removeListaModels(descricao);
-        labelSegmentacao.setIcon(new ImageIcon(segmentacao.getImagemSegmentada()));
+        labelSegmentacao.setIcon(new ImageIcon(imagem.getSegmentacao().getImagemSegmentada()));
         if(projetoAberto){
             jButtonSalvarAlteracoes.setEnabled(true);
         }
         
-        if (anotacao.getHashRegioes().isEmpty()){
+        if (imagem.getAnotacao().getHashRegioes().isEmpty()){
             labelRegioesSeparadas.setIcon(null);
         }
     }//GEN-LAST:event_jButtonRemoverAnotacaoActionPerformed
@@ -978,7 +893,7 @@ public class JImageFrame extends javax.swing.JFrame {
         //Limpa o label de mapa de rótulo
         labelMapaDeRotulo.setIcon(null);
         //Limpa a instancia de imagem, para carregar corretamente a nova
-        segmentacao.resetaImagem();
+        imagem.getSegmentacao().resetaImagem();
         //Limpa as seleções anteriores
         regioesSelecionadas.clear();
         
@@ -987,17 +902,17 @@ public class JImageFrame extends javax.swing.JFrame {
         listaAnotacoes.setModel(listaModelsAnotacao.getListaModels());
         
         //Salva o endereço da imagem
-        segmentacao.setEndereco(arquivo.getCaminhoImagem());   
+        imagem.getSegmentacao().setEndereco(arquivo.getCaminhoImagem());   
 
         //Se a imagem não foi segmentada ainda, ou se os parâmetros foram alterados, deve segmentar a imagem
-        if (segmentacao.estaModificado(arquivo.getBlurLevel(),arquivo.getColorRadius(),arquivo.getMinSize()) || segmentacao.getImagem() == null){
-            segmentacao.segmentarImagem();
-            jLabel6.setText(Integer.toString(segmentacao.getNumeroDeRegioes()));
+        if (imagem.getSegmentacao().estaModificado(arquivo.getBlurLevel(),arquivo.getColorRadius(),arquivo.getMinSize()) || imagem.getSegmentacao().getImagem() == null){
+            imagem.getSegmentacao().segmentarImagem();
+            numRegioesSegmentadas.setText(Integer.toString(imagem.getSegmentacao().getNumeroDeRegioes()));
         }
         //segmentando imagem com os parâmetro de segmentação lidos do arquivo
-        labelSegmentacao.setIcon(new ImageIcon(segmentacao.getImagemSegmentada()));
-        labelMapaDeRotulo.setIcon(new ImageIcon(segmentacao.getImagemMapaRotulo()));
-        anotacao.setHashRegioes(arquivo.getDesceicaodoArquivo());
+        labelSegmentacao.setIcon(new ImageIcon(imagem.getSegmentacao().getImagemSegmentada()));
+        labelMapaDeRotulo.setIcon(new ImageIcon(imagem.getSegmentacao().getImagemMapaRotulo()));
+        imagem.getAnotacao().setHashRegioes(arquivo.getDesceicaodoArquivo());
         //------  adicionando descrições na lista de anotações ---------
         String descricao = null;
         Set<Integer> chaves = arquivo.getDesceicaodoArquivo().keySet();
@@ -1010,16 +925,16 @@ public class JImageFrame extends javax.swing.JFrame {
                  listaModelsAnotacao.addListaModels(descricao);
              }
         }
-        if (!anotacao.getHashRegioes().isEmpty()){
-            imagemComRegioes = anotacao.getImagemComRegioesAnotadas(segmentacao);
+        if (!imagem.getAnotacao().getHashRegioes().isEmpty()){
+            imagemComRegioes = imagem.getAnotacao().getImagemComRegioesAnotadas(imagem.getSegmentacao());
             labelRegioesSeparadas.setIcon(new ImageIcon(imagemComRegioes));
         }
     }//GEN-LAST:event_jRadioButtonMenuItem1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonAbrirProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirProjetoActionPerformed
         // TODO add your handling code here:
         jRadioButtonMenuItem1ActionPerformed(evt);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonAbrirProjetoActionPerformed
 
     private void jButtonSalvarAlteracoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarAlteracoesActionPerformed
         // TODO add your handling code here:
@@ -1027,10 +942,10 @@ public class JImageFrame extends javax.swing.JFrame {
         String caminhoArq = chooserOpen.getSelectedFile().toString();
         String aux = blurLevel.getText() +  "\t" + colorRadius.getText() + "\t" + minSize.getText();
         //Adiciona o endereço da imagem na primeira linha
-        salvarArq.add(segmentacao.getEndereco());
+        salvarArq.add(imagem.getSegmentacao().getEndereco());
         //Na segunda linha ficam as conficurações de segmentação ("blurLevel", "colorRadius" e "minSize" respectivamente)
         salvarArq.add(aux);
-        Map<Integer,String> regioesPraSalvar = anotacao.getHashRegioes();
+        Map<Integer,String> regioesPraSalvar = imagem.getAnotacao().getHashRegioes();
         Set<Integer> chaves = regioesPraSalvar.keySet();
         for(Integer a: chaves){
             salvarArq.add(a.toString() + "\t" + regioesPraSalvar.get(a));
@@ -1041,24 +956,18 @@ public class JImageFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "Alterações salvas com sucesso.");
     }//GEN-LAST:event_jButtonSalvarAlteracoesActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (!segmentacao.estaSegmentada()){
+    private void jButtonRemoverSelecoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverSelecoesActionPerformed
+        if (!imagem.getSegmentacao().estaSegmentada()){
             return;
         }
         listaAnotacoes.clearSelection();
-        listInstantSearch.clearSelection();
+        //listInstantSearch.clearSelection();
         regioesSelecionadas.clear();
-        labelSegmentacao.setIcon(new ImageIcon (segmentacao.getImagemSegmentada()));
-    }//GEN-LAST:event_jButton2ActionPerformed
+        labelSegmentacao.setIcon(new ImageIcon (imagem.getSegmentacao().getImagemSegmentada()));
+    }//GEN-LAST:event_jButtonRemoverSelecoesActionPerformed
 
     private void jButtonSalvarNovaImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarNovaImagemActionPerformed
-        File outputfile = new File(segmentacao.getNomeArquivo() + "_regioes_anotadas.jpg");
-        try {
-            ImageIO.write(anotacao.getMapaImagemNovoBrilho(segmentacao, anotacao.getRegioesAnotadas(), true), "jpg", outputfile);
-        } catch (IOException ex) {
-            Logger.getLogger(JImageFrame.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(rootPane, "Houve um problema ao salvar a imagem.");
-        }
+
     }//GEN-LAST:event_jButtonSalvarNovaImagemActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -1091,8 +1000,7 @@ public class JImageFrame extends javax.swing.JFrame {
         
     private Arquivo arquivo; //para salvar ou abrir arquivos
     private boolean projetoAberto; //usado em comparações para ativar o botão de salvar alterações
-    private Segmentacao segmentacao;
-    private Anotacao anotacao;
+    private Imagem imagem;
     private Busca busca;
     private ListaModels listaModelsAnotacao;
     private ListaModels listaModelsBusca;
@@ -1104,12 +1012,10 @@ public class JImageFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField blurLevel;
     private javax.swing.JButton botaoNovaAnotacao;
-    private javax.swing.JTextField buscaAnotacoes;
     private javax.swing.JTextField colorRadius;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButtonBuscaAnotacoes;
+    private javax.swing.JButton jButtonAbrirProjeto;
     private javax.swing.JButton jButtonRemoverAnotacao;
+    private javax.swing.JButton jButtonRemoverSelecoes;
     private javax.swing.JButton jButtonSalvarAlteracoes;
     private javax.swing.JButton jButtonSalvarComo;
     private javax.swing.JButton jButtonSalvarNovaImagem;
@@ -1121,7 +1027,6 @@ public class JImageFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1150,11 +1055,11 @@ public class JImageFrame extends javax.swing.JFrame {
     private javax.swing.JLabel labelMapaDeRotulo;
     private javax.swing.JLabel labelRegioesSeparadas;
     private javax.swing.JLabel labelSegmentacao;
-    private javax.swing.JList listInstantSearch;
     private javax.swing.JList listaAnotacoes;
     private javax.swing.JMenu menuAjuda;
     private javax.swing.JTextField minSize;
     private javax.swing.JTextField novaAnotacao;
+    private javax.swing.JLabel numRegioesSegmentadas;
     private javax.swing.JLabel regioes;
     // End of variables declaration//GEN-END:variables
 }

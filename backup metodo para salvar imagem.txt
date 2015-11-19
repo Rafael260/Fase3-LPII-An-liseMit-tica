@@ -1,0 +1,10 @@
+BACKUP MÉTODO PARA SALVAR IMAGEM
+
+
+        File outputfile = new File(segmentacao.getNomeArquivo() + "_regioes_anotadas.jpg");
+        try {
+            ImageIO.write(anotacao.getMapaImagemNovoBrilho(segmentacao, anotacao.getRegioesAnotadas(), true), "jpg", outputfile);
+        } catch (IOException ex) {
+            Logger.getLogger(JImageFrame.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Houve um problema ao salvar a imagem.");
+        }

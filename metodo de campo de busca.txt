@@ -1,0 +1,17 @@
+backup método de evento de teclado no campo de busca
+
+//Pega o que o usuário digitou até o momento para a busca
+        String digitado = buscaAnotacoes.getText();
+        //Busca todas as descrições que começam com o texto digitado
+        ArrayList<String> resultados = busca.getDescricoesComInicio(digitado, anotacao.getHashRegioes());
+        listaModelsBusca.clearListaModels();
+        listaModelsBusca.addListaModels(resultados);
+        //Coloca todas as descrições na lista de resultados em tempo real
+        listInstantSearch.setModel(listaModelsBusca.getListaModels());
+        //Se o arraylist não estiver vazio, deve mostrar al ista de resultados
+        if (!resultados.isEmpty()){
+            listInstantSearch.setVisible(true);
+        }
+        else{
+            listInstantSearch.setVisible(false);
+        }
