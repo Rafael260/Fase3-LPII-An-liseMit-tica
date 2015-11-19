@@ -111,7 +111,15 @@ public class JImageFrame extends javax.swing.JFrame {
 
         jLabel4.setText("jLabel4");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jTabbedPaneSegmentacao.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
 
@@ -679,7 +687,7 @@ public class JImageFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemCarregarActionPerformed
 
     private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
-        System.exit(0);
+        dispose();
     }//GEN-LAST:event_jMenuItemSairActionPerformed
     /**
      * Seleciona ou tira seleção de regiões da imagem para anotação
@@ -1052,6 +1060,14 @@ public class JImageFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Houve um problema ao salvar a imagem.");
         }
     }//GEN-LAST:event_jButtonSalvarNovaImagemActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        dispose();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        dispose();
+    }//GEN-LAST:event_formWindowClosed
       
     /**
      * Função que pega o texto digitado pelo usuário para converter em double
