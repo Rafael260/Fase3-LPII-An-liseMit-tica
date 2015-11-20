@@ -32,17 +32,21 @@ public class BuscaRotulos extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listaImagensComRotulo = new javax.swing.JList<>();
+        listaImagensComRotulo = new javax.swing.JList<String>();
         buscaAnotacoes = new javax.swing.JTextField();
         jButtonBuscaAnotacoes = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listInstantSearch = new javax.swing.JList();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
-        inicioBuscaRotulo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButtonAbrirProjeto = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(930, 709));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -59,7 +63,7 @@ public class BuscaRotulos extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(listaImagensComRotulo);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 200, 170));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 290, 310));
 
         buscaAnotacoes.setPreferredSize(new java.awt.Dimension(200, 28));
         buscaAnotacoes.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -67,7 +71,7 @@ public class BuscaRotulos extends javax.swing.JFrame {
                 buscaAnotacoesKeyReleased(evt);
             }
         });
-        jPanel1.add(buscaAnotacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 140, -1));
+        jPanel1.add(buscaAnotacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 220, -1));
 
         jButtonBuscaAnotacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/buscar2.png"))); // NOI18N
         jButtonBuscaAnotacoes.setFocusable(false);
@@ -78,7 +82,7 @@ public class BuscaRotulos extends javax.swing.JFrame {
                 jButtonBuscaAnotacoesActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonBuscaAnotacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+        jPanel1.add(jButtonBuscaAnotacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, -1));
 
         jScrollPane1.setBorder(null);
 
@@ -89,40 +93,45 @@ public class BuscaRotulos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(listInstantSearch);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 140, 110));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 220, 110));
+
+        jButtonAbrirProjeto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButtonAbrirProjeto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/abrir_projeto.png"))); // NOI18N
+        jButtonAbrirProjeto.setText("Abrir Projeto");
+        jButtonAbrirProjeto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAbrirProjetoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonAbrirProjeto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 480, 130, -1));
 
         jTabbedPane1.addTab("Busca de Rótulos", jPanel1);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 88, 230, -1));
-        getContentPane().add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 570, 620));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 76, 340, 570));
 
-        inicioBuscaRotulo.setText("Busca de Rótulos");
+        jLabel3.setPreferredSize(new java.awt.Dimension(930, 709));
+        jScrollPane3.setViewportView(jLabel3);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(18, Short.MAX_VALUE)
-                    .addComponent(inicioBuscaRotulo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(93, Short.MAX_VALUE)))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(28, Short.MAX_VALUE)
-                    .addComponent(inicioBuscaRotulo)
-                    .addContainerGap(28, Short.MAX_VALUE)))
-        );
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 580, 560));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 70));
+        jLabel1.setFont(new java.awt.Font("MV Boli", 0, 18)); // NOI18N
+        jLabel1.setText("Projeto: ");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, -1, -1));
 
-        jButton1.setText("Abrir Projeto");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 530, -1, -1));
+        jLabel2.setText("\"nome da imagem atual\"");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 40, 140, -1));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setPreferredSize(new java.awt.Dimension(331, 77));
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
+        jLabel8.setFont(new java.awt.Font("Bookman Old Style", 1, 36)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Analise Mitotica1.png"))); // NOI18N
+        jPanel2.add(jLabel8, new java.awt.GridBagConstraints());
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 331, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -142,19 +151,26 @@ public class BuscaRotulos extends javax.swing.JFrame {
     private void buscaAnotacoesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscaAnotacoesKeyReleased
 
     }//GEN-LAST:event_buscaAnotacoesKeyReleased
+
+    private void jButtonAbrirProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirProjetoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAbrirProjetoActionPerformed
     private ListaImagens listaImagens;
     private Arquivo arquivo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField buscaAnotacoes;
-    private javax.swing.JLabel inicioBuscaRotulo;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonAbrirProjeto;
     private javax.swing.JButton jButtonBuscaAnotacoes;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JList listInstantSearch;
     private javax.swing.JList<String> listaImagensComRotulo;
     // End of variables declaration//GEN-END:variables

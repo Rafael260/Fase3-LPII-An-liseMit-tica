@@ -124,12 +124,8 @@ public class Arquivo {
         for(String linha : guardaArq) {
             gravarArq.println(linha);
         }
-        try {
-            arq.close();
 
-        } catch (IOException ex) {
-            System.out.println("problemas para finalizar o arquivo.");
-        }
+        arq.close();
     }
     
     /**
