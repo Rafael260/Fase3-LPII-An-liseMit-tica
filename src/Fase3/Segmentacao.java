@@ -100,6 +100,14 @@ public class Segmentacao {
         //return partesNome[0];
     }
     
+    public String getNomeArquivoComExtensao(){
+        File f = new File(endereco);
+        String nome = f.getName();
+        return nome;
+        //String [] partesNome = nome.split(".");
+        //return partesNome[0];
+    }
+    
     public int getIndiceDeVetor(int x, int y){
         return y*imagem.getWidth()+ x;
     }

@@ -34,12 +34,13 @@ public class BuscaRotulos extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         listaImagensComRotulo = new javax.swing.JList<>();
         buscaAnotacoes = new javax.swing.JTextField();
-        listInstantSearch = new javax.swing.JList();
         jButtonBuscaAnotacoes = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listInstantSearch = new javax.swing.JList();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         inicioBuscaRotulo = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -58,7 +59,7 @@ public class BuscaRotulos extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(listaImagensComRotulo);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 190, 170));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 200, 170));
 
         buscaAnotacoes.setPreferredSize(new java.awt.Dimension(200, 28));
         buscaAnotacoes.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -67,13 +68,6 @@ public class BuscaRotulos extends javax.swing.JFrame {
             }
         });
         jPanel1.add(buscaAnotacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 140, -1));
-
-        listInstantSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listInstantSearchMouseClicked(evt);
-            }
-        });
-        jPanel1.add(listInstantSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 140, 110));
 
         jButtonBuscaAnotacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/buscar2.png"))); // NOI18N
         jButtonBuscaAnotacoes.setFocusable(false);
@@ -86,20 +80,18 @@ public class BuscaRotulos extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonBuscaAnotacoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
 
+        jScrollPane1.setBorder(null);
+
+        listInstantSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listInstantSearchMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(listInstantSearch);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 140, 110));
+
         jTabbedPane1.addTab("Busca de Rótulos", jPanel1);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 225, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 564, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Isolar Regiões", jPanel2);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 88, 230, -1));
         getContentPane().add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 570, 620));
@@ -129,6 +121,9 @@ public class BuscaRotulos extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 70));
 
+        jButton1.setText("Abrir Projeto");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 530, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -136,26 +131,27 @@ public class BuscaRotulos extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_formWindowClosing
 
-    private void buscaAnotacoesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscaAnotacoesKeyReleased
-        
-    }//GEN-LAST:event_buscaAnotacoesKeyReleased
+    private void jButtonBuscaAnotacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscaAnotacoesActionPerformed
+
+    }//GEN-LAST:event_jButtonBuscaAnotacoesActionPerformed
 
     private void listInstantSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listInstantSearchMouseClicked
 
     }//GEN-LAST:event_listInstantSearchMouseClicked
 
-    private void jButtonBuscaAnotacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscaAnotacoesActionPerformed
-        
-    }//GEN-LAST:event_jButtonBuscaAnotacoesActionPerformed
+    private void buscaAnotacoesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscaAnotacoesKeyReleased
+
+    }//GEN-LAST:event_buscaAnotacoesKeyReleased
     private ListaImagens listaImagens;
     private Arquivo arquivo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField buscaAnotacoes;
     private javax.swing.JLabel inicioBuscaRotulo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonBuscaAnotacoes;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;

@@ -519,12 +519,6 @@ public class JImageFrame extends javax.swing.JFrame {
      * @param evt 
      */
     private void jButtonSegmtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSegmtActionPerformed
-        //Esvazia as anotações de uma possível imagem anterior
-        imagem.getAnotacao().esvaziarHash();
-        //Esvazia as anotações da lista
-        listaModelsAnotacao.clearListaModels();
-        //listaAnotacoes.setModel(listaModelsAnotacao.getListaModels());
-        
         double local_blur_Level = 0;
         double local_color_Radius = 0;
         double local_min_Size = 0;
@@ -539,32 +533,32 @@ public class JImageFrame extends javax.swing.JFrame {
             local_blur_Level = getDouble(blurLevel.getText());
         }catch(IllegalArgumentException e){
             JOptionPane.showMessageDialog(rootPane, "Parâmetros de segmentação inválidos");
+            return;
         }
         try{
             local_color_Radius = getDouble(colorRadius.getText());
         }catch(IllegalArgumentException e){
             JOptionPane.showMessageDialog(rootPane, "Parâmetros de segmentação inválidos");
+            return;
         }
         try{
             local_min_Size = getDouble(minSize.getText());
         }catch(IllegalArgumentException e){
             JOptionPane.showMessageDialog(rootPane, "Parâmetros de segmentação inválidos");
+            return;
         }
         //Se a imagem não foi segmentada ainda, ou se os parâmetros foram alterados, deve segmentar a imagem
         if (imagem.getSegmentacao().estaModificado(local_blur_Level,local_color_Radius,local_min_Size) || imagem.getSegmentacao().getImagem() == null){
+            //Esvazia as anotações de uma possível imagem anterior
+            imagem.getAnotacao().esvaziarHash();
+            //Esvazia as anotações da lista
+            listaModelsAnotacao.clearListaModels();
+            
             imagem.getSegmentacao().segmentarImagem();
             numRegioesSegmentadas.setText(Integer.toString(imagem.getSegmentacao().getNumeroDeRegioes()));
         }
-        
         labelSegmentacao.setIcon(new ImageIcon(imagem.getSegmentacao().getImagemSegmentada()));
         labelMapaDeRotulo.setIcon(new ImageIcon(imagem.getSegmentacao().getImagemMapaRotulo()));
-        
-        try{
-            arquivo.salvarArquivo(imagem.getSegmentacao());
-        }
-        catch(IOException e){
-            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro ao salvar a imagem no diretório padrão");
-        }
     }//GEN-LAST:event_jButtonSegmtActionPerformed
 
     /**
@@ -692,16 +686,11 @@ public class JImageFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Você tem que fazer alguma anotação.");
             return;
         }
-        //chooserSave = new JFileChooser();
-        //Se não carregou o arquivo, não faz nada
-        //if (chooserSave.showSaveDialog(null) != JFileChooser.APPROVE_OPTION){
-        //    return;
-        //}
         ArrayList<String> salvarArq = new ArrayList<>();
         //String caminhoArq = chooserSave.getSelectedFile().toString();
         String parametrosSeg = blurLevel.getText() +  "\t" + colorRadius.getText() + "\t" + minSize.getText();
         //Adiciona o endereço da imagem na primeira linha
-        salvarArq.add(imagem.getSegmentacao().getNomeArquivo());
+        salvarArq.add(imagem.getSegmentacao().getNomeArquivoComExtensao());
         //Na segunda linha ficam as conficurações de segmentação ("blurLevel", "colorRadius" e "minSize" respectivamente)
         salvarArq.add(parametrosSeg);
         Map<Integer,String> regioesPraSalvar = imagem.getAnotacao().getHashRegioes();
@@ -709,9 +698,21 @@ public class JImageFrame extends javax.swing.JFrame {
         for(Integer a: chaves){
             salvarArq.add(a.toString() + "\t" + regioesPraSalvar.get(a));
         }
-                        
-        arquivo.salvarArquivo(salvarArq, imagem.getSegmentacao().getNomeArquivo());
-        JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso.");
+        try{                
+            arquivo.salvarArquivo(salvarArq, imagem.getSegmentacao().getNomeArquivo());
+        }
+        catch(IOException e){
+            JOptionPane.showMessageDialog(rootPane, "Houve um problema ao salvar o arquivo.");
+            return;
+        }
+        //Salvar a imagem no diretório padrão
+        try{
+            arquivo.salvarArquivo(imagem.getSegmentacao());
+        }
+        catch(IOException e){
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu um erro ao salvar a imagem no diretório padrão");
+        }
+            JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso.");
     }//GEN-LAST:event_jButtonSalvarComoActionPerformed
 
     
@@ -802,7 +803,7 @@ public class JImageFrame extends javax.swing.JFrame {
  */
     private void jRadioButtonMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem1ActionPerformed
         //Abre a janela de selecionar projeto já na pasta onde são salvos por default
-        chooserOpen = new JFileChooser(new File(".").getAbsolutePath() + "\\anotacoes");
+        chooserOpen = new JFileChooser(Arquivo.getCaminhoProjeto() + "\\anotacoes");
         //Se não carregou o arquivo, não tem o que fazer
         if (chooserOpen.showOpenDialog(null) != JFileChooser.APPROVE_OPTION){
             return;
